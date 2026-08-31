@@ -1,16 +1,7 @@
-class ViewportHandler {
-  element(element) {
-    element.setAttribute(
-      "content",
-      "width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content"
-    );
-  }
-}
-
 class HeadHandler {
   element(element) {
     element.prepend(
-      '<script src="/assets/omnisend-mobile-fix.js"></script>',
+      '<script src="/assets/omnisend-mobile-safe-v2.js"></script>',
       { html: true }
     );
   }
@@ -26,7 +17,6 @@ export default {
     }
 
     return new HTMLRewriter()
-      .on('meta[name="viewport"]', new ViewportHandler())
       .on("head", new HeadHandler())
       .transform(response);
   },
