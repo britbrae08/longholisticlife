@@ -72,6 +72,20 @@
     header.insertAdjacentElement("afterend", quickStart);
   }
 
+  function centerJumpButtonHorizontally(button, behavior) {
+    var scroller = button && button.parentElement;
+    if (!scroller) return;
+
+    var centeredLeft = button.offsetLeft - (scroller.clientWidth - button.offsetWidth) / 2;
+    var left = Math.max(0, centeredLeft);
+
+    if (typeof scroller.scrollTo === "function") {
+      scroller.scrollTo({ left: left, behavior: behavior || "smooth" });
+    } else {
+      scroller.scrollLeft = left;
+    }
+  }
+
   function syncTrack(grid, jump) {
     var source = Array.prototype.slice.call(grid.querySelectorAll("button"));
     var buttons = Array.prototype.slice.call(jump.querySelectorAll("button"));
@@ -82,7 +96,7 @@
       button.classList.toggle("is-complete", Boolean(completed));
       if (selected) {
         button.setAttribute("aria-current", "step");
-        button.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+        centerJumpButtonHorizontally(button, "smooth");
       } else {
         button.removeAttribute("aria-current");
       }
