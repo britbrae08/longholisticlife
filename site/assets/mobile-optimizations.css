@@ -1,3 +1,14 @@
+/* Keep the welcome page vertically scrollable after jumping to #choose-your-guide. */
+html,
+body {
+  overflow-y: auto;
+}
+
+.welcome-page {
+  overflow-x: hidden;
+  overflow-y: visible;
+}
+
 /* Mobile-first refinements for the NEW CREATION welcome experience. */
 .mobile-quick-start,
 .mobile-show-all,
