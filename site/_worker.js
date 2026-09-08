@@ -1,7 +1,7 @@
 class WelcomeHeadHandler {
   element(element) {
     element.prepend(
-      '<script src="/assets/welcome-top-fix-v2.js"></script>',
+      '<script src="/assets/welcome-top-fix-v3.js"></script>',
       { html: true }
     );
   }
