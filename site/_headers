@@ -8,3 +8,7 @@
 
 /assets/omnisend-mobile-safe-v2.js
   Cache-Control: no-store, max-age=0
+
+# Welcome-page navigation fixes must always be fetched fresh while we iterate.
+/assets/welcome-top-fix-v4.js
+  Cache-Control: no-store, max-age=0
