@@ -1,11 +1,20 @@
-/* Keep the welcome page vertically scrollable after jumping to #choose-your-guide. */
+/* Keep the welcome page vertically scrollable after jumping to #choose-your-guide.
+ * Important: overflow-x:hidden can make overflow-y compute to auto, turning
+ * .welcome-page into a nested scroll container in Chrome. overflow-x:clip
+ * clips decorative horizontal overflow without creating that scroll container.
+ */
 html,
 body {
+  min-height: 100%;
+  height: auto;
   overflow-y: auto;
 }
 
 .welcome-page {
-  overflow-x: hidden;
+  height: auto;
+  max-height: none;
+  overflow: visible;
+  overflow-x: clip;
   overflow-y: visible;
 }
 
