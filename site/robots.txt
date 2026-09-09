@@ -1,7 +1,6 @@
 User-agent: *
 Allow: /
 
-# Keep post-opt-in PDFs from competing with the public SEO pages.
-Disallow: /guides/
+# Downloadable lead magnets remain crawlable so search engines can see their X-Robots-Tag noindex headers.
 
 Sitemap: https://longholisticlife.com/sitemap.xml
