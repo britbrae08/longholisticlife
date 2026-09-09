@@ -10,7 +10,10 @@ const DIRECTORY_PATHS = new Set([
   "/new-creation",
   "/workshops",
   "/about",
+  "/learn",
   "/learn/faith-based-holistic-health-coaching",
+  "/learn/whole-person-wellness-for-busy-christian-women",
+  "/learn/sustainable-health-rhythms-busy-life",
 ]);
 
 const homeSchema = {
@@ -24,10 +27,7 @@ const homeSchema = {
       "logo": `${PRIMARY_ORIGIN}/lhl-logo.png`,
       "email": "brittany@longholisticlife.com",
       "description": "Faith-centered whole-person wellness coaching and education for women, built around practical sustainable health rhythms.",
-      "founder": {
-        "@type": "Person",
-        "name": "Brittany Long"
-      }
+      "founder": { "@type": "Person", "name": "Brittany Long" }
     },
     {
       "@type": "WebSite",
@@ -72,18 +72,18 @@ const homeSchema = {
         },
         {
           "@type": "Question",
-          "name": "Is NEW CREATION another diet or exercise plan?",
+          "name": "Is this another diet or exercise plan?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "No. NEW CREATION is a whole-person framework that considers nourishment, energy, rest, stress, movement, relationships, outlook, environment, faith, choices, and sustainable rhythms together."
+            "text": "No. NEW CREATION is a whole-person framework. It helps you consider nourishment, energy, rest, stress, movement, relationships, outlook, environment, faith, and sustainable rhythms together."
           }
         },
         {
           "@type": "Question",
-          "name": "Does Long Holistic Life coaching replace medical care?",
+          "name": "What if I have a medical condition or take medication?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "No. Long Holistic Life coaching is educational and supportive and does not diagnose, treat, prescribe, provide psychotherapy, or replace licensed medical or mental-health care."
+            "text": "Continue working with your licensed healthcare professional. The guide provides general education and reflection; it does not diagnose, treat, or replace individualized medical advice."
           }
         }
       ]
@@ -132,10 +132,7 @@ class HomeHeadHandler {
 
 class WelcomeHeadHandler {
   element(element) {
-    element.prepend(
-      '<script src="/assets/welcome-top-fix-v4.js"></script>',
-      { html: true }
-    );
+    element.prepend('<script src="/assets/welcome-top-fix-v4.js"></script>', { html: true });
     element.append(
       `<meta name="robots" content="noindex,follow,max-image-preview:large">
 <link rel="canonical" href="${PRIMARY_ORIGIN}/welcome">
@@ -154,9 +151,7 @@ class WelcomeHeadHandler {
 
 class LogoImageHandler {
   element(element) {
-    if (element.getAttribute("src") === "/lhl-logo.png") {
-      element.setAttribute("src", "/lhl-logo.webp");
-    }
+    if (element.getAttribute("src") === "/lhl-logo.png") element.setAttribute("src", "/lhl-logo.webp");
     element.setAttribute("decoding", "async");
   }
 }
@@ -186,7 +181,7 @@ class HomeFooterHandler {
 <a href="/new-creation/">NEW CREATION Framework</a>
 <a href="/workshops/">Christian Wellness Workshops</a>
 <a href="/about/">About</a>
-<a href="/learn/faith-based-holistic-health-coaching/">Learn</a>
+<a href="/learn/">Christian Wellness Resources</a>
 </nav>`,
       { html: true }
     );
@@ -224,10 +219,7 @@ export default {
 
     const response = await env.ASSETS.fetch(request);
     const contentType = response.headers.get("content-type") || "";
-
-    if (!contentType.toLowerCase().includes("text/html")) {
-      return response;
-    }
+    if (!contentType.toLowerCase().includes("text/html")) return response;
 
     if (url.pathname === "/" || url.pathname === "") {
       return new HTMLRewriter()
