@@ -191,8 +191,13 @@ class HomeFooterHandler {
 class SitewideCreditHandler {
   element(element) {
     element.append(
-      `<div class="faithcraft-credit" style="box-sizing:border-box;width:100%;padding:14px 20px;text-align:center;background:#F7F4EE;border-top:1px solid #E2E9DF;color:#33483B;font-family:Lato,Arial,sans-serif;font-size:13px;line-height:1.5;">
-<a href="https://faithcraft.agency/" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none;">Powered by FaithCraft.Agency</a>
+      `<style>
+.faithcraft-credit{box-sizing:border-box;width:100%;padding:14px 20px;text-align:center;background:#F7F4EE;border-top:1px solid #E2E9DF;color:#33483B;font-family:Lato,Arial,sans-serif;font-size:13px;line-height:1.5}
+.faithcraft-credit a{color:inherit;text-decoration:none}
+@media(max-width:768px){.faithcraft-credit{padding-bottom:86px}}
+</style>
+<div class="faithcraft-credit">
+<a href="https://faithcraft.agency/" target="_blank" rel="noopener noreferrer">Powered by FaithCraft.Agency</a>
 </div>`,
       { html: true }
     );
