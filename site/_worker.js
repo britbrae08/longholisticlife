@@ -188,6 +188,17 @@ class HomeFooterHandler {
   }
 }
 
+class SitewideCreditHandler {
+  element(element) {
+    element.append(
+      `<div class="faithcraft-credit" style="box-sizing:border-box;width:100%;padding:14px 20px;text-align:center;background:#F7F4EE;border-top:1px solid #E2E9DF;color:#33483B;font-family:Lato,Arial,sans-serif;font-size:13px;line-height:1.5;">
+<a href="https://faithcraft.agency/" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none;">Powered by FaithCraft.Agency</a>
+</div>`,
+      { html: true }
+    );
+  }
+}
+
 function redirect(url, status = 301) {
   return Response.redirect(url.toString(), status);
 }
@@ -230,6 +241,7 @@ export default {
         .on('link[rel="preload"][href="/lhl-logo.png"]', new LogoPreloadHandler())
         .on('link[rel*="icon"]', new FaviconHandler())
         .on("footer", new HomeFooterHandler())
+        .on("body", new SitewideCreditHandler())
         .transform(response);
     }
 
@@ -237,9 +249,12 @@ export default {
       return new HTMLRewriter()
         .on("head", new WelcomeHeadHandler())
         .on('link[rel*="icon"]', new FaviconHandler())
+        .on("body", new SitewideCreditHandler())
         .transform(response);
     }
 
-    return response;
+    return new HTMLRewriter()
+      .on("body", new SitewideCreditHandler())
+      .transform(response);
   },
 };
