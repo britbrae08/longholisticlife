@@ -8,7 +8,6 @@ const REDIRECT_HOSTS = new Set([
 const DIRECTORY_PATHS = new Set([
   "/coaching",
   "/new-creation",
-  "/workshops",
   "/about",
   "/learn",
   "/learn/faith-based-holistic-health-coaching",
@@ -277,6 +276,15 @@ export default {
     }
 
     if (url.pathname === "/workshop.html" || url.pathname === "/workshop/") {
+      url.pathname = "/workshop";
+      return redirect(url);
+    }
+
+    if (
+      url.pathname === "/workshops" ||
+      url.pathname === "/workshops/" ||
+      url.pathname === "/workshops/index.html"
+    ) {
       url.pathname = "/workshop";
       return redirect(url);
     }
