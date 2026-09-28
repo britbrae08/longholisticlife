@@ -291,14 +291,31 @@ export default {
       return redirect(url);
     }
 
-    let assetRequest = request;
     if (url.pathname === "/workshop/booked") {
       const assetUrl = new URL(request.url);
-      assetUrl.pathname = "/workshop/booked.html";
-      assetRequest = new Request(assetUrl.toString(), request);
+      assetUrl.pathname = "/workshop/booked-page.txt";
+
+      const rawBookedPage = await env.ASSETS.fetch(
+        new Request(assetUrl.toString(), request)
+      );
+
+      if (!rawBookedPage.ok) return rawBookedPage;
+
+      const bookedHeaders = new Headers(rawBookedPage.headers);
+      bookedHeaders.set("content-type", "text/html; charset=UTF-8");
+      bookedHeaders.delete("location");
+
+      const bookedResponse = new Response(await rawBookedPage.text(), {
+        status: 200,
+        headers: bookedHeaders,
+      });
+
+      let rewriter = new HTMLRewriter();
+      rewriter = applySiteChrome(rewriter);
+      return rewriter.transform(bookedResponse);
     }
 
-    const response = await env.ASSETS.fetch(assetRequest);
+    const response = await env.ASSETS.fetch(request);
     const contentType = response.headers.get("content-type") || "";
     if (!contentType.toLowerCase().includes("text/html")) return response;
 
