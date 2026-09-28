@@ -1,0 +1,42 @@
+LONG HOLISTIC LIFE — WORKSHOP LANDING PAGE UPLOAD
+
+This package is designed for the repository:
+britbrae08/longholisticlife
+
+IMPORTANT:
+GitHub will not automatically unzip a ZIP file after you upload it.
+Unzip this package first, then copy/upload the included `site` files into
+the repository while preserving their paths.
+
+Files:
+- site/workshop.html
+- site/assets/workshop-v1.css
+- site/assets/workshop-v1.js
+- site/sitemap.xml
+- site/_worker.js
+
+Expected page:
+https://longholisticlife.com/workshop
+
+The page uses the existing /assets/content-seo.css stylesheet already in
+the repository, plus workshop-v1.css for landing-page-specific styling.
+
+Omnisend form:
+<div id="omnisend-embedded-v2-6abab9185ae2cdd74bc193bb"></div>
+
+The existing Long Holistic Life Omnisend brand ID is loaded on the page.
+
+CTA behavior:
+All workshop CTA buttons use JavaScript window scrolling to the form and
+DO NOT change the URL hash. This is intentional to avoid the Chrome
+fragment-navigation "sticking" issue previously encountered on /welcome.
+
+Header/footer:
+The page uses the same Long Holistic Life SEO header/footer style and adds
+"Workshop" in the header navigation linking to /workshop.
+
+SITE-WIDE HEADER MENU:
+The included _worker.js preserves the current welcome-page fixes and
+changes the existing inner-page header navigation item from "Workshops"
+to "Workshop", linking it to /workshop. The new workshop page itself
+also has "Workshop" marked as the current page.

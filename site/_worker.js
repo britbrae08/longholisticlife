@@ -188,6 +188,14 @@ class HomeFooterHandler {
   }
 }
 
+class WorkshopNavHandler {
+  element(element) {
+    element.setAttribute("href", "/workshop");
+    element.setInnerContent("Workshop");
+    element.removeAttribute("aria-current");
+  }
+}
+
 class SitewideCreditHandler {
   element(element) {
     element.append(
@@ -254,6 +262,7 @@ export default {
     }
 
     return new HTMLRewriter()
+      .on('.seo-nav a[href="/workshops/"]', new WorkshopNavHandler())
       .on("body", new SitewideCreditHandler())
       .transform(response);
   },
