@@ -78,3 +78,27 @@ V3 CHANGES
   Live on Zoom
 - Added a conspicuous real-time countdown timer in the hero.
 - Countdown target is 2026-11-15T19:00:00-06:00 (CST).
+
+
+V4 — BOOKED / THANK-YOU PAGE
+
+New URL:
+https://longholisticlife.com/workshop/booked
+
+NEW FILES:
+- site/workshop/booked.html
+- site/assets/workshop-booked-v1.css
+- site/assets/workshop-booked-v1.js
+
+UPDATED:
+- site/_worker.js
+- site/_headers
+
+The booked page:
+- Warmly welcomes confirmed workshop registrants
+- Reinforces the value of the decision they just made without promising a guaranteed health outcome
+- Repeats the workshop date/time: Sunday, November 15, 2026 at 7:00 PM Central
+- Includes a live Days / Hours / Minutes / Seconds countdown
+- Uses the same Playfair Display + Montserrat typography, feminine LHL palette,
+  unified header, unified footer, and logo favicon
+- Is marked noindex so it does not appear in search results

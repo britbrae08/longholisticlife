@@ -281,12 +281,24 @@ export default {
       return redirect(url);
     }
 
+    if (url.pathname === "/workshop/booked.html" || url.pathname === "/workshop/booked/") {
+      url.pathname = "/workshop/booked";
+      return redirect(url);
+    }
+
     if (DIRECTORY_PATHS.has(url.pathname)) {
       url.pathname += "/";
       return redirect(url);
     }
 
-    const response = await env.ASSETS.fetch(request);
+    let assetRequest = request;
+    if (url.pathname === "/workshop/booked") {
+      const assetUrl = new URL(request.url);
+      assetUrl.pathname = "/workshop/booked.html";
+      assetRequest = new Request(assetUrl.toString(), request);
+    }
+
+    const response = await env.ASSETS.fetch(assetRequest);
     const contentType = response.headers.get("content-type") || "";
     if (!contentType.toLowerCase().includes("text/html")) return response;
 

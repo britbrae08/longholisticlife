@@ -45,3 +45,9 @@
 
 /favicon.png
   Cache-Control: public, max-age=3600
+
+/assets/workshop-booked-v1.css
+  Cache-Control: no-store, max-age=0
+
+/assets/workshop-booked-v1.js
+  Cache-Control: no-store, max-age=0
