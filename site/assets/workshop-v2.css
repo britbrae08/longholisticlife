@@ -485,3 +485,132 @@
   .workshop-microcopy{justify-content:center}
   .workshop-price-inline{width:100%}
 }
+
+
+.workshop-event-strip{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:8px 11px;
+  width:fit-content;
+  max-width:100%;
+  margin:-2px 0 24px;
+  padding:11px 14px;
+  background:var(--lhl-light-sage);
+  border:1px solid rgba(51,72,59,.14);
+  border-radius:6px;
+  color:var(--lhl-green);
+  font-size:.76rem;
+  line-height:1.35;
+}
+.workshop-event-icon{color:var(--lhl-gold);font-size:1rem}
+.workshop-event-dot{color:var(--lhl-rose)}
+.workshop-countdown{
+  max-width:720px;
+  margin:25px 0 23px;
+  padding:20px;
+  border:1px solid rgba(199,155,74,.62);
+  border-radius:10px;
+  background:
+    linear-gradient(135deg,rgba(255,255,255,.93),rgba(247,244,238,.93)),
+    var(--lhl-cream);
+  box-shadow:0 16px 34px rgba(51,72,59,.09);
+}
+.workshop-countdown-heading{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:14px;
+}
+.workshop-countdown-heading > span{
+  color:#8f4452;
+  font-size:.69rem;
+  font-weight:900;
+  letter-spacing:.17em;
+}
+.workshop-countdown-heading > small{
+  color:#5e6a62;
+  font-size:.71rem;
+  font-weight:700;
+  text-align:right;
+}
+.workshop-countdown-grid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:9px;
+}
+.workshop-countdown-grid > div{
+  padding:14px 8px 12px;
+  text-align:center;
+  background:var(--lhl-green);
+  border-radius:7px;
+  box-shadow:inset 0 0 0 1px rgba(230,214,178,.16);
+}
+.workshop-countdown-grid strong{
+  display:block;
+  color:#fff;
+  font-family:"Playfair Display",Georgia,serif;
+  font-size:clamp(2rem,4vw,3rem);
+  font-weight:600;
+  line-height:.95;
+  font-variant-numeric:tabular-nums;
+}
+.workshop-countdown-grid span{
+  display:block;
+  margin-top:7px;
+  color:var(--lhl-bronze);
+  font-size:.61rem;
+  font-weight:800;
+  letter-spacing:.09em;
+  text-transform:uppercase;
+}
+.workshop-countdown > p{
+  margin:12px 0 0;
+  color:#5f6a63;
+  font-size:.75rem;
+  font-weight:700;
+  text-align:center;
+}
+.workshop-countdown.is-live{
+  border-color:var(--lhl-rose);
+  background:var(--lhl-blush);
+}
+.workshop-countdown.is-live .workshop-countdown-grid > div{background:var(--lhl-rose)}
+.workshop-form-event{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:3px;
+  margin:19px 0 3px;
+  padding:10px 12px;
+  border-top:1px solid rgba(199,155,74,.38);
+  border-bottom:1px solid rgba(199,155,74,.38);
+  color:var(--lhl-green);
+  text-align:center;
+}
+.workshop-form-event strong{font-size:.78rem}
+.workshop-form-event span{font-size:.7rem;color:#6b756e}
+.workshop-date-reminder{
+  margin:-4px 0 20px;
+  color:#764552;
+  font-size:.86rem;
+}
+.workshop-final-date{
+  margin:14px auto 0!important;
+  color:var(--lhl-green);
+  font-size:.9rem!important;
+  line-height:1.6;
+}
+
+@media(max-width:620px){
+  .workshop-event-strip{width:100%;justify-content:center;text-align:center}
+  .workshop-event-dot{display:none}
+  .workshop-countdown{padding:15px 12px}
+  .workshop-countdown-heading{align-items:center;flex-direction:column}
+  .workshop-countdown-heading > small{text-align:center}
+  .workshop-countdown-grid{gap:6px}
+  .workshop-countdown-grid > div{padding:12px 4px 10px}
+  .workshop-countdown-grid strong{font-size:1.9rem}
+  .workshop-countdown-grid span{font-size:.54rem}
+}

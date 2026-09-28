@@ -224,8 +224,8 @@ class FaviconHandler {
   element(element) {
     const rel = element.getAttribute("rel") || "";
     if (rel.includes("icon") && rel !== "apple-touch-icon") {
-      element.setAttribute("href", "/favicon.svg");
-      element.setAttribute("type", "image/svg+xml");
+      element.setAttribute("href", "/favicon.png");
+      element.setAttribute("type", "image/png");
     }
   }
 }

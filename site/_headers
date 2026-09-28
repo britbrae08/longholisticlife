@@ -42,3 +42,6 @@
 
 /llms.txt
   Cache-Control: public, max-age=3600
+
+/favicon.png
+  Cache-Control: public, max-age=3600

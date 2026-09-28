@@ -67,3 +67,14 @@ WHAT THIS VERSION CHANGES
 7. /welcome FIX PRESERVED:
    The current welcome-top-fix-v4.js and women-consult-invites.js behavior
    remains intact in _worker.js.
+
+
+V3 CHANGES
+- Favicon now uses the uploaded Long Holistic Life logo: site/favicon.png
+- Removed the workshop sentence "You already have access to the NEW CREATION framework."
+- Added workshop schedule in prominent locations:
+  Sunday, November 15, 2026
+  7:00 PM Central Time
+  Live on Zoom
+- Added a conspicuous real-time countdown timer in the hero.
+- Countdown target is 2026-11-15T19:00:00-06:00 (CST).
