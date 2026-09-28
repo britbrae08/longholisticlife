@@ -91,6 +91,51 @@ const homeSchema = {
   ]
 };
 
+const unifiedHeader = `
+<div class="lhl-header-inner">
+  <a class="lhl-header-brand" href="/" aria-label="Long Holistic Life home">
+    <img src="/lhl-logo.webp" alt="" width="58" height="58">
+    <span>
+      <strong>Long Holistic Life</strong>
+      <small>Faith-centered whole-person wellness for women</small>
+    </span>
+  </a>
+  <nav class="lhl-header-nav" aria-label="Main navigation">
+    <a href="/coaching/">Coaching</a>
+    <a href="/new-creation/">NEW CREATION</a>
+    <a class="lhl-header-workshop" href="/workshop">Workshop</a>
+    <a href="/about/">About</a>
+    <a class="lhl-header-cta" href="/#free-guide">Get the Free Guide</a>
+  </nav>
+</div>`;
+
+const unifiedFooter = `
+<div class="lhl-footer-main">
+  <div class="lhl-footer-top">
+    <a class="lhl-footer-brand" href="/">
+      <img src="/lhl-logo.webp" alt="" width="58" height="58">
+      <span>
+        <strong>Long Holistic Life</strong>
+        <p>Whole-person wellness for the body, mind, relationships, and spirit.</p>
+      </span>
+    </a>
+    <div class="lhl-footer-contact">
+      <a href="mailto:brittany@longholisticlife.com">brittany@longholisticlife.com</a>
+      <span>© 2026 Long Holistic Life</span>
+    </div>
+  </div>
+  <nav class="lhl-footer-nav" aria-label="Explore Long Holistic Life">
+    <a href="/coaching/">Christian Health Coaching</a>
+    <a href="/new-creation/">NEW CREATION Framework</a>
+    <a href="/workshop">NEW CREATION Workshop</a>
+    <a href="/about/">About</a>
+    <a href="/learn/">Christian Wellness Resources</a>
+  </nav>
+</div>
+<div class="lhl-footer-credit">
+  <a href="https://faithcraft.agency/" target="_blank" rel="noopener noreferrer">Powered by FaithCraft.Agency</a>
+</div>`;
+
 class ReplaceTitle {
   element(element) {
     element.setInnerContent("Christian Holistic Health Coaching for Women | Long Holistic Life");
@@ -102,6 +147,18 @@ class ReplaceDescription {
     element.setAttribute(
       "content",
       "Faith-based holistic health coaching for busy Christian women. Build sustainable rhythms for nourishment, energy, stress, sleep, movement, relationships, and spiritual well-being."
+    );
+  }
+}
+
+class BrandHeadHandler {
+  element(element) {
+    element.append(
+      `<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/sitewide-brand-v2.css">`,
+      { html: true }
     );
   }
 }
@@ -173,42 +230,30 @@ class FaviconHandler {
   }
 }
 
-class HomeFooterHandler {
+class UnifiedHeaderHandler {
   element(element) {
-    element.append(
-      `<nav class="seo-home-links" aria-label="Explore Long Holistic Life">
-<a href="/coaching/">Christian Health Coaching</a>
-<a href="/new-creation/">NEW CREATION Framework</a>
-<a href="/workshops/">Christian Wellness Workshops</a>
-<a href="/about/">About</a>
-<a href="/learn/">Christian Wellness Resources</a>
-</nav>`,
-      { html: true }
-    );
+    element.setAttribute("class", "lhl-site-header");
+    element.setInnerContent(unifiedHeader, { html: true });
   }
 }
 
-class WorkshopNavHandler {
+class UnifiedFooterHandler {
   element(element) {
-    element.setAttribute("href", "/workshop");
-    element.setInnerContent("Workshop");
-    element.removeAttribute("aria-current");
-  }
-}
-
-class SitewideCreditHandler {
-  element(element) {
-    element.append(
-      `<div class="faithcraft-credit" style="box-sizing:border-box;width:100%;padding:14px 20px 92px;text-align:center;background:#F7F4EE;border-top:1px solid #E2E9DF;color:#33483B;font-family:Lato,Arial,sans-serif;font-size:13px;line-height:1.5;">
-<a href="https://faithcraft.agency/" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none;">Powered by FaithCraft.Agency</a>
-</div>`,
-      { html: true }
-    );
+    element.setAttribute("class", "lhl-site-footer");
+    element.setInnerContent(unifiedFooter, { html: true });
   }
 }
 
 function redirect(url, status = 301) {
   return Response.redirect(url.toString(), status);
+}
+
+function applySiteChrome(rewriter) {
+  return rewriter
+    .on("head", new BrandHeadHandler())
+    .on("header", new UnifiedHeaderHandler())
+    .on("footer", new UnifiedFooterHandler())
+    .on('link[rel*="icon"]', new FaviconHandler());
 }
 
 export default {
@@ -231,6 +276,11 @@ export default {
       return redirect(url);
     }
 
+    if (url.pathname === "/workshop.html" || url.pathname === "/workshop/") {
+      url.pathname = "/workshop";
+      return redirect(url);
+    }
+
     if (DIRECTORY_PATHS.has(url.pathname)) {
       url.pathname += "/";
       return redirect(url);
@@ -241,29 +291,25 @@ export default {
     if (!contentType.toLowerCase().includes("text/html")) return response;
 
     if (url.pathname === "/" || url.pathname === "") {
-      return new HTMLRewriter()
+      let rewriter = new HTMLRewriter()
         .on("title", new ReplaceTitle())
         .on('meta[name="description"]', new ReplaceDescription())
         .on("head", new HomeHeadHandler())
         .on('img[src="/lhl-logo.png"]', new LogoImageHandler())
-        .on('link[rel="preload"][href="/lhl-logo.png"]', new LogoPreloadHandler())
-        .on('link[rel*="icon"]', new FaviconHandler())
-        .on("footer", new HomeFooterHandler())
-        .on("body", new SitewideCreditHandler())
-        .transform(response);
+        .on('link[rel="preload"][href="/lhl-logo.png"]', new LogoPreloadHandler());
+      rewriter = applySiteChrome(rewriter);
+      return rewriter.transform(response);
     }
 
     if (url.pathname === "/welcome" || url.pathname === "/welcome/") {
-      return new HTMLRewriter()
-        .on("head", new WelcomeHeadHandler())
-        .on('link[rel*="icon"]', new FaviconHandler())
-        .on("body", new SitewideCreditHandler())
-        .transform(response);
+      let rewriter = new HTMLRewriter()
+        .on("head", new WelcomeHeadHandler());
+      rewriter = applySiteChrome(rewriter);
+      return rewriter.transform(response);
     }
 
-    return new HTMLRewriter()
-      .on('.seo-nav a[href="/workshops/"]', new WorkshopNavHandler())
-      .on("body", new SitewideCreditHandler())
-      .transform(response);
+    let rewriter = new HTMLRewriter();
+    rewriter = applySiteChrome(rewriter);
+    return rewriter.transform(response);
   },
 };

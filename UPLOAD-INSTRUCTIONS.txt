@@ -1,42 +1,69 @@
-LONG HOLISTIC LIFE — WORKSHOP LANDING PAGE UPLOAD
+LONG HOLISTIC LIFE — WORKSHOP + SITEWIDE BRANDING V2
 
-This package is designed for the repository:
+Repository:
 britbrae08/longholisticlife
 
-IMPORTANT:
-GitHub will not automatically unzip a ZIP file after you upload it.
-Unzip this package first, then copy/upload the included `site` files into
-the repository while preserving their paths.
+IMPORTANT
+GitHub does not automatically unzip an uploaded ZIP. Download and unzip this
+package, then upload/replace the included files while preserving paths.
 
-Files:
+REPLACE:
 - site/workshop.html
-- site/assets/workshop-v1.css
-- site/assets/workshop-v1.js
-- site/sitemap.xml
 - site/_worker.js
+- site/_headers
+- site/sitemap.xml
 
-Expected page:
-https://longholisticlife.com/workshop
+ADD:
+- site/assets/workshop-v2.css
+- site/assets/workshop-v2.js
+- site/assets/sitewide-brand-v2.css
 
-The page uses the existing /assets/content-seo.css stylesheet already in
-the repository, plus workshop-v1.css for landing-page-specific styling.
+WHAT THIS VERSION CHANGES
 
-Omnisend form:
-<div id="omnisend-embedded-v2-6abab9185ae2cdd74bc193bb"></div>
+1. /workshop landing page rebuilt to match the feminine Long Holistic Life brand:
+   - Deep Rose #B76E79
+   - Soft Blush #E8C7C8
+   - Sage #98A993
+   - Light Sage #E2E9DF
+   - Warm Cream #F7F4EE
+   - Gold/Bronze #C79B4A / #E6D6B2
+   - Deep Green #33483B
+   - Playfair Display headlines
+   - Montserrat body / CTA copy
 
-The existing Long Holistic Life Omnisend brand ID is loaded on the page.
+2. Workshop pricing now clearly shows:
+   - Regularly $227
+   - Special workshop price $47
 
-CTA behavior:
-All workshop CTA buttons use JavaScript window scrolling to the form and
-DO NOT change the URL hash. This is intentional to avoid the Chrome
-fragment-navigation "sticking" issue previously encountered on /welcome.
+3. Omnisend form remains in the FIRST workshop section:
+   <div id="omnisend-embedded-v2-6abab9185ae2cdd74bc193bb"></div>
 
-Header/footer:
-The page uses the same Long Holistic Life SEO header/footer style and adds
-"Workshop" in the header navigation linking to /workshop.
+4. ALL workshop CTA buttons scroll to the Omnisend form using window.scrollTo.
+   They intentionally do NOT change the URL hash, which avoids the Chrome
+   anchor-scroll sticking issue previously encountered on /welcome.
 
-SITE-WIDE HEADER MENU:
-The included _worker.js preserves the current welcome-page fixes and
-changes the existing inner-page header navigation item from "Workshops"
-to "Workshop", linking it to /workshop. The new workshop page itself
-also has "Workshop" marked as the current page.
+5. SITEWIDE HEADER + FOOTER:
+   The updated _worker.js replaces the existing header and footer at runtime
+   on every HTML page with one consistent Long Holistic Life header/footer.
+   This means the homepage, coaching, NEW CREATION, workshop, about, learn,
+   and welcome pages all use the same branded site chrome.
+
+   Header links:
+   - Coaching
+   - NEW CREATION
+   - Workshop
+   - About
+   - Get the Free Guide
+
+   Footer mirrors the visual structure of the current home landing page:
+   logo + brand, email, copyright, site links, and Powered by FaithCraft.Agency.
+
+6. SITEWIDE BRAND CONSISTENCY:
+   sitewide-brand-v2.css is injected AFTER page-level styles by the worker.
+   It standardizes Playfair Display + Montserrat, the LHL palette, button
+   treatment, header/footer, and core page styling while preserving each
+   page's existing content and functionality.
+
+7. /welcome FIX PRESERVED:
+   The current welcome-top-fix-v4.js and women-consult-invites.js behavior
+   remains intact in _worker.js.

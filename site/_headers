@@ -1,4 +1,4 @@
-# Baseline security/trust headers without blocking Omnisend or other required scripts.
+# Baseline security/trust headers without blocking Omnisend or required scripts.
 /*
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
@@ -7,6 +7,16 @@
 # Cache content-hashed generated assets immutably.
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
+
+# Sitewide brand + workshop files are versioned, but keep them fresh while this redesign is being verified.
+/assets/sitewide-brand-v2.css
+  Cache-Control: no-store, max-age=0
+
+/assets/workshop-v2.css
+  Cache-Control: no-store, max-age=0
+
+/assets/workshop-v2.js
+  Cache-Control: no-store, max-age=0
 
 # Hand-written mobile form hotfixes are intentionally not immutable.
 /assets/omnisend-mobile-fix.js
