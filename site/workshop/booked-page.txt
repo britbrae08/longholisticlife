@@ -164,6 +164,15 @@
   </section>
 </main>
 
+
+  <aside class="booked-sticky-reminder" role="note" aria-label="Zoom link reminder">
+    <div class="booked-sticky-icon" aria-hidden="true">✉</div>
+    <div class="booked-sticky-copy">
+      <strong>Watch for your Zoom link!</strong>
+      <p>You’ll receive an <b>email and text the day of the workshop</b> with the Zoom address. Look out for it—and be sure to check your <b>spam and junk folders</b>, too.</p>
+    </div>
+  </aside>
+
 <footer></footer>
 
 <script src="/assets/workshop-booked-v1.js" defer></script>

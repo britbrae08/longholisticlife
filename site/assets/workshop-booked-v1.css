@@ -358,3 +358,94 @@
   .booked-countdown-grid span{font-size:.53rem}
   .booked-next-grid{grid-template-columns:1fr}
 }
+
+
+/* Persistent workshop-access reminder */
+.booked-sticky-reminder{
+  position:fixed;
+  right:22px;
+  bottom:22px;
+  z-index:1000;
+  width:min(430px,calc(100vw - 44px));
+  display:grid;
+  grid-template-columns:48px 1fr;
+  gap:14px;
+  align-items:start;
+  padding:18px 20px;
+  background:var(--lhl-green);
+  color:#fff;
+  border:1px solid rgba(230,214,178,.75);
+  border-radius:10px;
+  box-shadow:0 20px 50px rgba(38,52,44,.28);
+}
+.booked-sticky-reminder:before{
+  content:"";
+  position:absolute;
+  inset:6px;
+  pointer-events:none;
+  border:1px solid rgba(230,214,178,.22);
+  border-radius:7px;
+}
+.booked-sticky-icon{
+  position:relative;
+  z-index:1;
+  width:44px;
+  height:44px;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  background:var(--lhl-blush);
+  color:var(--lhl-green);
+  font-size:1.3rem;
+  font-weight:800;
+}
+.booked-sticky-copy{
+  position:relative;
+  z-index:1;
+}
+.booked-sticky-copy strong{
+  display:block;
+  margin:1px 0 5px;
+  color:var(--lhl-bronze);
+  font-family:"Playfair Display",Georgia,serif;
+  font-size:1.1rem;
+  line-height:1.2;
+}
+.booked-sticky-copy p{
+  margin:0;
+  color:#f7f4ee;
+  font-size:.76rem;
+  line-height:1.55;
+}
+.booked-sticky-copy b{
+  color:#fff;
+  font-weight:800;
+}
+
+@media(max-width:620px){
+  .booked-page{
+    padding-bottom:150px;
+  }
+  .booked-sticky-reminder{
+    left:10px;
+    right:10px;
+    bottom:10px;
+    width:auto;
+    grid-template-columns:38px 1fr;
+    gap:10px;
+    padding:14px 15px;
+    border-radius:8px;
+  }
+  .booked-sticky-icon{
+    width:36px;
+    height:36px;
+    font-size:1rem;
+  }
+  .booked-sticky-copy strong{
+    font-size:1rem;
+  }
+  .booked-sticky-copy p{
+    font-size:.7rem;
+    line-height:1.45;
+  }
+}

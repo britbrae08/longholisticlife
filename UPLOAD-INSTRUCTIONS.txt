@@ -1,104 +1,27 @@
-LONG HOLISTIC LIFE — WORKSHOP + SITEWIDE BRANDING V2
+LONG HOLISTIC LIFE — BOOKED PAGE STICKY ZOOM REMINDER V5
 
-Repository:
+Upload/replace these files in:
 britbrae08/longholisticlife
 
-IMPORTANT
-GitHub does not automatically unzip an uploaded ZIP. Download and unzip this
-package, then upload/replace the included files while preserving paths.
-
-REPLACE:
-- site/workshop.html
-- site/_worker.js
-- site/_headers
-- site/sitemap.xml
-
-ADD:
-- site/assets/workshop-v2.css
-- site/assets/workshop-v2.js
-- site/assets/sitewide-brand-v2.css
-
-WHAT THIS VERSION CHANGES
-
-1. /workshop landing page rebuilt to match the feminine Long Holistic Life brand:
-   - Deep Rose #B76E79
-   - Soft Blush #E8C7C8
-   - Sage #98A993
-   - Light Sage #E2E9DF
-   - Warm Cream #F7F4EE
-   - Gold/Bronze #C79B4A / #E6D6B2
-   - Deep Green #33483B
-   - Playfair Display headlines
-   - Montserrat body / CTA copy
-
-2. Workshop pricing now clearly shows:
-   - Regularly $227
-   - Special workshop price $47
-
-3. Omnisend form remains in the FIRST workshop section:
-   <div id="omnisend-embedded-v2-6abab9185ae2cdd74bc193bb"></div>
-
-4. ALL workshop CTA buttons scroll to the Omnisend form using window.scrollTo.
-   They intentionally do NOT change the URL hash, which avoids the Chrome
-   anchor-scroll sticking issue previously encountered on /welcome.
-
-5. SITEWIDE HEADER + FOOTER:
-   The updated _worker.js replaces the existing header and footer at runtime
-   on every HTML page with one consistent Long Holistic Life header/footer.
-   This means the homepage, coaching, NEW CREATION, workshop, about, learn,
-   and welcome pages all use the same branded site chrome.
-
-   Header links:
-   - Coaching
-   - NEW CREATION
-   - Workshop
-   - About
-   - Get the Free Guide
-
-   Footer mirrors the visual structure of the current home landing page:
-   logo + brand, email, copyright, site links, and Powered by FaithCraft.Agency.
-
-6. SITEWIDE BRAND CONSISTENCY:
-   sitewide-brand-v2.css is injected AFTER page-level styles by the worker.
-   It standardizes Playfair Display + Montserrat, the LHL palette, button
-   treatment, header/footer, and core page styling while preserving each
-   page's existing content and functionality.
-
-7. /welcome FIX PRESERVED:
-   The current welcome-top-fix-v4.js and women-consult-invites.js behavior
-   remains intact in _worker.js.
-
-
-V3 CHANGES
-- Favicon now uses the uploaded Long Holistic Life logo: site/favicon.png
-- Removed the workshop sentence "You already have access to the NEW CREATION framework."
-- Added workshop schedule in prominent locations:
-  Sunday, November 15, 2026
-  7:00 PM Central Time
-  Live on Zoom
-- Added a conspicuous real-time countdown timer in the hero.
-- Countdown target is 2026-11-15T19:00:00-06:00 (CST).
-
-
-V4 — BOOKED / THANK-YOU PAGE
-
-New URL:
-https://longholisticlife.com/workshop/booked
-
-NEW FILES:
+FILES TO UPLOAD:
 - site/workshop/booked.html
+- site/workshop/booked-page.txt
 - site/assets/workshop-booked-v1.css
-- site/assets/workshop-booked-v1.js
 
-UPDATED:
-- site/_worker.js
-- site/_headers
+IMPORTANT:
+The live /workshop/booked route currently uses booked-page.txt as its
+internal backing asset to avoid the Cloudflare redirect loop. Therefore
+BOTH booked.html and booked-page.txt are included and should be replaced.
 
-The booked page:
-- Warmly welcomes confirmed workshop registrants
-- Reinforces the value of the decision they just made without promising a guaranteed health outcome
-- Repeats the workshop date/time: Sunday, November 15, 2026 at 7:00 PM Central
-- Includes a live Days / Hours / Minutes / Seconds countdown
-- Uses the same Playfair Display + Montserrat typography, feminine LHL palette,
-  unified header, unified footer, and logo favicon
-- Is marked noindex so it does not appear in search results
+WHAT CHANGED:
+A conspicuous fixed reminder card now stays visible on the booked page:
+
+"Watch for your Zoom link!
+You’ll receive an email and text the day of the workshop with the Zoom
+address. Look out for it—and be sure to check your spam and junk folders,
+too."
+
+The reminder uses the existing Long Holistic Life deep green, blush,
+cream, bronze, Playfair Display, and Montserrat styling.
+
+No GitHub changes were made by ChatGPT for this request.
