@@ -255,9 +255,216 @@ function applySiteChrome(rewriter) {
     .on('link[rel*="icon"]', new FaviconHandler());
 }
 
+const WORKSHOP_PAYMENT_LINK_ID = "plink_1UKkRHLw0gD5inNPqPXXE4Ja";
+const WORKSHOP_EVENT_NAME = "NEW CREATION Workshop Purchased";
+const WORKSHOP_PAID_TAG = "Workshop Paid – Nov 15 2026";
+const OMNISEND_API_VERSION = "2026-03-15";
+
+function hexToBytes(hex) {
+  if (!hex || hex.length % 2 !== 0 || !/^[0-9a-f]+$/i.test(hex)) return null;
+  const bytes = new Uint8Array(hex.length / 2);
+  for (let i = 0; i < hex.length; i += 2) {
+    bytes[i / 2] = parseInt(hex.slice(i, i + 2), 16);
+  }
+  return bytes;
+}
+
+async function verifyStripeSignature(rawBody, signatureHeader, secret) {
+  if (!signatureHeader || !secret) return false;
+
+  const parts = signatureHeader.split(",").map((part) => part.trim());
+  const timestampPart = parts.find((part) => part.startsWith("t="));
+  const signatures = parts
+    .filter((part) => part.startsWith("v1="))
+    .map((part) => part.slice(3));
+
+  if (!timestampPart || signatures.length === 0) return false;
+
+  const timestamp = Number(timestampPart.slice(2));
+  if (!Number.isFinite(timestamp)) return false;
+
+  // Stripe recommends rejecting signatures outside a short replay window.
+  const toleranceSeconds = 300;
+  if (Math.abs(Math.floor(Date.now() / 1000) - timestamp) > toleranceSeconds) {
+    return false;
+  }
+
+  const encoder = new TextEncoder();
+  const key = await crypto.subtle.importKey(
+    "raw",
+    encoder.encode(secret),
+    { name: "HMAC", hash: "SHA-256" },
+    false,
+    ["verify"]
+  );
+  const signedPayload = encoder.encode(`${timestamp}.${rawBody}`);
+
+  for (const signature of signatures) {
+    const signatureBytes = hexToBytes(signature);
+    if (!signatureBytes) continue;
+    if (await crypto.subtle.verify("HMAC", key, signatureBytes, signedPayload)) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+function stripeEventCacheRequest(eventID) {
+  return new Request(
+    `${PRIMARY_ORIGIN}/__stripe-webhook-cache/${encodeURIComponent(eventID)}`,
+    { method: "GET" }
+  );
+}
+
+async function wasStripeEventProcessed(eventID) {
+  try {
+    if (!globalThis.caches?.default) return false;
+    return Boolean(await globalThis.caches.default.match(stripeEventCacheRequest(eventID)));
+  } catch {
+    return false;
+  }
+}
+
+async function markStripeEventProcessed(eventID) {
+  try {
+    if (!globalThis.caches?.default) return;
+    await globalThis.caches.default.put(
+      stripeEventCacheRequest(eventID),
+      new Response("processed", {
+        headers: { "Cache-Control": "public, max-age=604800" },
+      })
+    );
+  } catch {
+    // Best-effort duplicate protection. Stripe signature verification remains authoritative.
+  }
+}
+
+async function handleWorkshopStripeWebhook(request, env) {
+  if (request.method !== "POST") {
+    return new Response("Method not allowed", {
+      status: 405,
+      headers: { Allow: "POST" },
+    });
+  }
+
+  if (!env.STRIPE_WEBHOOK_SECRET || !env.OMNISEND_API_KEY) {
+    console.error("Workshop webhook secrets are not configured.");
+    return new Response("Webhook configuration incomplete", { status: 500 });
+  }
+
+  const rawBody = await request.text();
+  const signatureHeader = request.headers.get("Stripe-Signature");
+  const validSignature = await verifyStripeSignature(
+    rawBody,
+    signatureHeader,
+    env.STRIPE_WEBHOOK_SECRET
+  );
+
+  if (!validSignature) {
+    return new Response("Invalid Stripe signature", { status: 400 });
+  }
+
+  let stripeEvent;
+  try {
+    stripeEvent = JSON.parse(rawBody);
+  } catch {
+    return new Response("Invalid JSON", { status: 400 });
+  }
+
+  if (stripeEvent.type !== "checkout.session.completed") {
+    return new Response("Event ignored", { status: 200 });
+  }
+
+  if (stripeEvent.id && (await wasStripeEventProcessed(stripeEvent.id))) {
+    return new Response("Event already processed", { status: 200 });
+  }
+
+  const session = stripeEvent.data?.object;
+  if (!session || session.object !== "checkout.session") {
+    return new Response("Checkout session missing", { status: 400 });
+  }
+
+  // This Stripe account sells other products too. Only the NEW CREATION
+  // Workshop Payment Link is allowed to trigger this Omnisend event.
+  if (session.payment_link !== WORKSHOP_PAYMENT_LINK_ID) {
+    return new Response("Non-workshop checkout ignored", { status: 200 });
+  }
+
+  // Do not send purchase confirmations for a Checkout Session that is not paid.
+  if (session.payment_status !== "paid") {
+    return new Response("Workshop checkout not paid yet", { status: 200 });
+  }
+
+  const email = session.customer_details?.email || session.customer_email || "";
+  const phone = session.customer_details?.phone || "";
+
+  if (!email && !phone) {
+    console.error("Paid workshop Checkout Session has no email or phone.", session.id);
+    return new Response("Purchaser contact information missing", { status: 422 });
+  }
+
+  const contact = {
+    tags: [WORKSHOP_PAID_TAG],
+  };
+  if (email) contact.email = email;
+  if (phone) contact.phone = phone;
+
+  const eventTime = stripeEvent.created
+    ? new Date(stripeEvent.created * 1000).toISOString()
+    : new Date().toISOString();
+
+  const omnisendPayload = {
+    eventName: WORKSHOP_EVENT_NAME,
+    origin: "api",
+    eventTime,
+    contact,
+    properties: {
+      stripeEventID: stripeEvent.id || "",
+      stripeCheckoutSessionID: session.id || "",
+      stripePaymentLinkID: session.payment_link || "",
+      amountTotal:
+        typeof session.amount_total === "number" ? session.amount_total / 100 : 0,
+      currency: (session.currency || "usd").toUpperCase(),
+      paymentStatus: session.payment_status || "",
+      workshop: "NEW CREATION Whole-Person Reset Workshop",
+      workshopDate: "November 15, 2026",
+    },
+  };
+
+  const omnisendResponse = await fetch("https://api.omnisend.com/api/events", {
+    method: "POST",
+    headers: {
+      Authorization: `Omnisend-API-Key ${env.OMNISEND_API_KEY}`,
+      "Omnisend-Version": OMNISEND_API_VERSION,
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    body: JSON.stringify(omnisendPayload),
+  });
+
+  if (!omnisendResponse.ok) {
+    const errorText = await omnisendResponse.text();
+    console.error(
+      "Omnisend workshop event failed:",
+      omnisendResponse.status,
+      errorText.slice(0, 1000)
+    );
+    return new Response("Omnisend delivery failed", { status: 502 });
+  }
+
+  if (stripeEvent.id) await markStripeEventProcessed(stripeEvent.id);
+
+  return new Response("Workshop purchase sent to Omnisend", { status: 200 });
+}
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
+
+    if (url.pathname === "/api/stripe-workshop") {
+      return handleWorkshopStripeWebhook(request, env);
+    }
 
     if (REDIRECT_HOSTS.has(url.hostname)) {
       url.protocol = "https:";
