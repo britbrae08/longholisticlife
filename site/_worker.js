@@ -154,10 +154,10 @@ const welcomeConsultationSection = `
       <p class="consultation-promise">You do not need perfect habits, a diagnosis, or a completed guide before reaching out.</p>
     </div>
     <div class="consultation-actions">
-      <a id="book-a-call" class="contact-button lhl-welcome-book-call" href="https://scheduler.zoom.us/brittany-long-roller-i22l52/60-mins-with-brittany" target="_blank" rel="noopener noreferrer">
-        <b>Book a Call</b>
-        <small>Choose a time that works for you</small>
+      <a id="book-a-call" class="lhl-welcome-book-call" href="https://scheduler.zoom.us/brittany-long-roller-i22l52/60-mins-with-brittany" target="_blank" rel="noopener noreferrer">
+        <span>Book a Call</span><span aria-hidden="true">→</span>
       </a>
+      <p class="lhl-booking-note">Choose a time that works for you.</p>
       <p class="contact-microcopy">No pressure • No judgment • No obligation to purchase</p>
     </div>
   </div>
@@ -216,7 +216,7 @@ class HomeHeadHandler {
 
 class WelcomeHeadHandler {
   element(element) {
-    element.prepend('<script src="/assets/welcome-top-fix-v7.js"></script><script src="/assets/women-consult-invites.js" defer></script>', { html: true });
+    element.prepend('<script src="/assets/welcome-top-fix-v8.js"></script><script src="/assets/women-consult-invites.js" defer></script>', { html: true });
     element.append(
       `<meta name="robots" content="noindex,follow,max-image-preview:large">
 <link rel="canonical" href="${PRIMARY_ORIGIN}/welcome">
