@@ -29,6 +29,94 @@
     window.location.assign("/welcome/" + hash);
   }
 
+  var BOOKING_URL = "https://scheduler.zoom.us/brittany-long-roller-i22l52/60-mins-with-brittany";
+
+  function enforceWelcomeBooking() {
+    var header = document.querySelector("header");
+    if (header && !header.classList.contains("lhl-site-header")) {
+      header.className = "lhl-site-header";
+      header.innerHTML =
+        '<div class="lhl-header-inner">' +
+        '<a class="lhl-header-brand" href="/" aria-label="Long Holistic Life home"><img src="/lhl-logo.webp" alt="" width="58" height="58"><span><strong>Long Holistic Life</strong><small>Faith-centered whole-person wellness for women</small></span></a>' +
+        '<nav class="lhl-header-nav" aria-label="Main navigation"><a href="/coaching/">Coaching</a><a href="/new-creation/">NEW CREATION</a><a class="lhl-header-workshop" href="/workshop">Workshop</a><a href="/about/">About</a><a class="lhl-header-cta" href="#book-a-call">Book a Call</a></nav>' +
+        '</div>';
+    }
+
+    var headerCta = document.querySelector(".lhl-header-cta");
+    if (headerCta) {
+      headerCta.textContent = "Book a Call";
+      headerCta.setAttribute("href", "#book-a-call");
+    }
+
+    var section = document.querySelector("section.consultation-section");
+    var footer = document.querySelector("footer");
+
+    if (section) {
+      var actions = section.querySelector(".consultation-actions");
+      if (actions && !actions.querySelector("#book-a-call")) {
+        actions.innerHTML =
+          '<a id="book-a-call" class="contact-button lhl-welcome-book-call" href="' +
+          BOOKING_URL +
+          '" target="_blank" rel="noopener noreferrer"><b>Book a Call</b><small>Choose a time that works for you</small></a>' +
+          '<p class="contact-microcopy">No pressure • No judgment • No obligation to purchase</p>';
+      }
+
+      if (footer && section.nextElementSibling !== footer) {
+        footer.parentNode.insertBefore(section, footer);
+      }
+    }
+
+    var finalCall = document.querySelector(".welcome-final-cta a.welcome-primary-cta");
+    if (finalCall) {
+      finalCall.setAttribute("href", BOOKING_URL);
+      finalCall.setAttribute("target", "_blank");
+      finalCall.setAttribute("rel", "noopener noreferrer");
+      finalCall.innerHTML = 'Book a Call <span aria-hidden="true">→</span>';
+    }
+
+    var mobileCall = document.querySelector("a.welcome-mobile-cta");
+    if (mobileCall) {
+      mobileCall.setAttribute("href", BOOKING_URL);
+      mobileCall.setAttribute("target", "_blank");
+      mobileCall.setAttribute("rel", "noopener noreferrer");
+      mobileCall.innerHTML = 'Book a Call <span aria-hidden="true">→</span>';
+    }
+
+    if (footer && !footer.classList.contains("lhl-site-footer")) {
+      footer.className = "lhl-site-footer";
+      footer.innerHTML =
+        '<div class="lhl-footer-main">' +
+        '<nav class="lhl-footer-nav" aria-label="Explore Long Holistic Life"><a href="/">Home</a><a href="/coaching/">Coaching</a><a href="/new-creation/">NEW CREATION</a><a href="/workshop">Workshop</a><a href="/about/">About</a><a href="/learn/">Resources</a></nav>' +
+        '<div class="lhl-footer-brand-block"><a class="lhl-footer-logo" href="/" aria-label="Long Holistic Life home"><img src="/lhl-logo.webp" alt="" width="68" height="68"></a><a class="lhl-footer-brand-copy" href="/"><strong>Long Holistic Life</strong><span>Whole-person wellness for the body, mind, relationships, and spirit.</span></a></div>' +
+        '<div class="lhl-footer-contact"><a class="lhl-footer-email" href="mailto:brittany@longholisticlife.com">brittany@longholisticlife.com</a><a class="lhl-footer-book" href="' +
+        BOOKING_URL +
+        '" target="_blank" rel="noopener noreferrer">Book a Call</a></div></div>' +
+        '<div class="lhl-footer-credit"><a href="https://faithcraft.agency/" target="_blank" rel="noopener noreferrer">Powered by FaithCraft.Agency</a><span>© 2026 Long Holistic Life</span></div>';
+    }
+  }
+
+  function keepWelcomeBookingStable() {
+    enforceWelcomeBooking();
+
+    var observer = new MutationObserver(function () {
+      enforceWelcomeBooking();
+    });
+
+    if (document.body) {
+      observer.observe(document.body, { childList: true, subtree: true });
+      window.setTimeout(function () {
+        observer.disconnect();
+        enforceWelcomeBooking();
+      }, 3000);
+    }
+
+    window.setTimeout(enforceWelcomeBooking, 50);
+    window.setTimeout(enforceWelcomeBooking, 250);
+    window.setTimeout(enforceWelcomeBooking, 1000);
+  }
+
+  document.addEventListener("DOMContentLoaded", keepWelcomeBookingStable, { once: true });
+
   function prepareLinks() {
     var guideLink = document.querySelector('a[href="#choose-your-guide"]');
     if (guideLink) guideLink.setAttribute("href", "/welcome/#choose-your-guide");
