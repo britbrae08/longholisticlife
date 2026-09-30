@@ -267,6 +267,54 @@ body.seo-page{background:var(--lhl-cream)}
 }
 .lhl-footer-credit a:hover{color:#9b4353!important}
 
+/* Welcome page booking CTA */
+.welcome-page .consultation-actions{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center!important;
+}
+.welcome-page .lhl-welcome-book-call{
+  width:min(100%,390px)!important;
+  min-height:58px!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:4px!important;
+  padding:15px 28px!important;
+  border:0!important;
+  border-radius:6px!important;
+  background:var(--lhl-rose)!important;
+  color:#fff!important;
+  box-shadow:0 12px 28px rgba(143,68,82,.16)!important;
+  text-align:center!important;
+  text-decoration:none!important;
+  transition:transform .18s ease,box-shadow .18s ease,background .18s ease!important;
+}
+.welcome-page .lhl-welcome-book-call:hover{
+  background:#9b4353!important;
+  box-shadow:0 15px 34px rgba(143,68,82,.22)!important;
+  transform:translateY(-1px);
+}
+.welcome-page .lhl-welcome-book-call b{
+  color:#fff!important;
+  font-family:"Montserrat",Arial,sans-serif!important;
+  font-size:.8rem!important;
+  font-weight:800!important;
+  letter-spacing:.06em!important;
+  text-transform:uppercase!important;
+}
+.welcome-page .lhl-welcome-book-call small{
+  color:rgba(255,255,255,.86)!important;
+  font-family:"Montserrat",Arial,sans-serif!important;
+  font-size:.67rem!important;
+}
+.welcome-page .consultation-actions .contact-microcopy{
+  margin:15px 0 0!important;
+  text-align:center!important;
+}
+
 /* Consistent LHL page styling */
 body.seo-page .seo-hero,
 body.seo-page .seo-section{
