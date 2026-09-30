@@ -110,7 +110,7 @@ const unifiedHeader = `
 
 const welcomeHeader = unifiedHeader.replace(
   'class="lhl-header-cta" href="/#free-guide">Get the Free Guide</a>',
-  'class="lhl-header-cta" href="#book-a-call">Book a Call</a>'
+  'class="lhl-header-cta" href="/welcome" data-lhl-booking-jump="true">Book a Call</a>'
 );
 
 const unifiedFooter = `
@@ -216,7 +216,7 @@ class HomeHeadHandler {
 
 class WelcomeHeadHandler {
   element(element) {
-    element.prepend('<script src="/assets/welcome-top-fix-v8.js"></script><script src="/assets/women-consult-invites.js" defer></script>', { html: true });
+    element.prepend('<script src="/assets/welcome-top-fix-v9.js"></script><script src="/assets/women-consult-invites.js" defer></script>', { html: true });
     element.append(
       `<meta name="robots" content="noindex,follow,max-image-preview:large">
 <link rel="canonical" href="${PRIMARY_ORIGIN}/welcome">
