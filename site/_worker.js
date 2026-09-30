@@ -110,29 +110,33 @@ const unifiedHeader = `
 
 const unifiedFooter = `
 <div class="lhl-footer-main">
-  <div class="lhl-footer-top">
-    <a class="lhl-footer-brand" href="/">
-      <img src="/lhl-logo.webp" alt="" width="58" height="58">
-      <span>
-        <strong>Long Holistic Life</strong>
-        <p>Whole-person wellness for the body, mind, relationships, and spirit.</p>
-      </span>
-    </a>
-    <div class="lhl-footer-contact">
-      <a href="mailto:brittany@longholisticlife.com">brittany@longholisticlife.com</a>
-      <span>© 2026 Long Holistic Life</span>
-    </div>
-  </div>
   <nav class="lhl-footer-nav" aria-label="Explore Long Holistic Life">
-    <a href="/coaching/">Christian Health Coaching</a>
-    <a href="/new-creation/">NEW CREATION Framework</a>
-    <a href="/workshop">NEW CREATION Workshop</a>
+    <a href="/">Home</a>
+    <a href="/coaching/">Coaching</a>
+    <a href="/new-creation/">NEW CREATION</a>
+    <a href="/workshop">Workshop</a>
     <a href="/about/">About</a>
-    <a href="/learn/">Christian Wellness Resources</a>
+    <a href="/learn/">Resources</a>
   </nav>
+
+  <div class="lhl-footer-brand-block">
+    <a class="lhl-footer-logo" href="/" aria-label="Long Holistic Life home">
+      <img src="/lhl-logo.webp" alt="" width="68" height="68">
+    </a>
+    <a class="lhl-footer-brand-copy" href="/">
+      <strong>Long Holistic Life</strong>
+      <span>Whole-person wellness for the body, mind, relationships, and spirit.</span>
+    </a>
+  </div>
+
+  <div class="lhl-footer-contact">
+    <a class="lhl-footer-email" href="mailto:brittany@longholisticlife.com">brittany@longholisticlife.com</a>
+    <a class="lhl-footer-book" href="https://scheduler.zoom.us/brittany-long-roller-i22l52/60-mins-with-brittany" target="_blank" rel="noopener noreferrer">Book a Call</a>
+  </div>
 </div>
 <div class="lhl-footer-credit">
   <a href="https://faithcraft.agency/" target="_blank" rel="noopener noreferrer">Powered by FaithCraft.Agency</a>
+  <span>© 2026 Long Holistic Life</span>
 </div>`;
 
 class ReplaceTitle {
