@@ -108,6 +108,11 @@ const unifiedHeader = `
   </nav>
 </div>`;
 
+const welcomeHeader = unifiedHeader.replace(
+  'class="lhl-header-cta" href="/#free-guide">Get the Free Guide</a>',
+  'class="lhl-header-cta" href="#book-a-call">Book a Call</a>'
+);
+
 const unifiedFooter = `
 <div class="lhl-footer-main">
   <nav class="lhl-footer-nav" aria-label="Explore Long Holistic Life">
@@ -237,6 +242,40 @@ class UnifiedHeaderHandler {
   element(element) {
     element.setAttribute("class", "lhl-site-header");
     element.setInnerContent(unifiedHeader, { html: true });
+  }
+}
+
+class WelcomeHeaderHandler {
+  element(element) {
+    element.setAttribute("class", "lhl-site-header");
+    element.setInnerContent(welcomeHeader, { html: true });
+  }
+}
+
+class WelcomeConsultationActionsHandler {
+  element(element) {
+    element.setInnerContent(
+      '<a id="book-a-call" class="contact-button lhl-welcome-book-call" href="https://scheduler.zoom.us/brittany-long-roller-i22l52/60-mins-with-brittany" target="_blank" rel="noopener noreferrer"><b>Book a Call</b><small>Choose a time that works for you</small></a><p class="contact-microcopy">No pressure • No judgment • No obligation to purchase</p>',
+      { html: true }
+    );
+  }
+}
+
+class WelcomeFinalCallHandler {
+  element(element) {
+    element.setAttribute("href", "https://scheduler.zoom.us/brittany-long-roller-i22l52/60-mins-with-brittany");
+    element.setAttribute("target", "_blank");
+    element.setAttribute("rel", "noopener noreferrer");
+    element.setInnerContent('Book a Call <span aria-hidden="true">→</span>', { html: true });
+  }
+}
+
+class WelcomeMobileCallHandler {
+  element(element) {
+    element.setAttribute("href", "https://scheduler.zoom.us/brittany-long-roller-i22l52/60-mins-with-brittany");
+    element.setAttribute("target", "_blank");
+    element.setAttribute("rel", "noopener noreferrer");
+    element.setInnerContent('Book a Call <span aria-hidden="true">→</span>', { html: true });
   }
 }
 
@@ -551,8 +590,13 @@ export default {
 
     if (url.pathname === "/welcome" || url.pathname === "/welcome/") {
       let rewriter = new HTMLRewriter()
-        .on("head", new WelcomeHeadHandler());
-      rewriter = applySiteChrome(rewriter);
+        .on("head", new WelcomeHeadHandler())
+        .on("header", new WelcomeHeaderHandler())
+        .on(".consultation-actions", new WelcomeConsultationActionsHandler())
+        .on(".welcome-final-cta a.welcome-primary-cta", new WelcomeFinalCallHandler())
+        .on("a.welcome-mobile-cta", new WelcomeMobileCallHandler())
+        .on("footer", new UnifiedFooterHandler())
+        .on('link[rel*="icon"]', new FaviconHandler());
       return rewriter.transform(response);
     }
 
