@@ -54,9 +54,28 @@
     card.innerHTML = `
       <p class="invite-eyebrow">${invite.eyebrow}</p>
       <p>${invite.text}</p>
-      <a href="https://longholisticlife.com/welcome#consultation">${invite.button} →</a>
+      <a href="/welcome" data-lhl-booking-jump="true">${invite.button} →</a>
     `;
     nav.before(card);
+
+    const jump = card.querySelector('[data-lhl-booking-jump="true"]');
+    if (jump) {
+      jump.addEventListener('click', function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        if (typeof window.LHLScrollToBooking === 'function') {
+          window.LHLScrollToBooking();
+          return;
+        }
+
+        const bookingSection = document.querySelector('section.consultation-section');
+        if (bookingSection) {
+          const top = bookingSection.getBoundingClientRect().top + window.pageYOffset - 18;
+          window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+        }
+      });
+    }
   }
 
   const observer = new MutationObserver(renderInvite);
