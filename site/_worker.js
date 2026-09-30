@@ -257,7 +257,7 @@ function applySiteChrome(rewriter) {
 
 const WORKSHOP_PAYMENT_LINK_ID = "plink_1UKkRHLw0gD5inNPqPXXE4Ja";
 const WORKSHOP_EVENT_NAME = "NEW CREATION Workshop Purchased";
-const WORKSHOP_PAID_TAG = "Workshop Paid – Nov 15 2026";
+const WORKSHOP_PAID_TAG = "Workshop Paid – Nov 22 2026";
 const OMNISEND_API_VERSION = "2026-03-15";
 
 function hexToBytes(hex) {
@@ -428,7 +428,7 @@ async function handleWorkshopStripeWebhook(request, env) {
       currency: (session.currency || "usd").toUpperCase(),
       paymentStatus: session.payment_status || "",
       workshop: "NEW CREATION Whole-Person Reset Workshop",
-      workshopDate: "November 15, 2026",
+      workshopDate: "November 22, 2026",
     },
   };
 
