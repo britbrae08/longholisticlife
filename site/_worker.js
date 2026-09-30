@@ -144,6 +144,25 @@ const unifiedFooter = `
   <span>© 2026 Long Holistic Life</span>
 </div>`;
 
+const welcomeConsultationSection = `
+<section class="consultation-section" id="consultation">
+  <div class="consultation-card">
+    <div class="consultation-copy">
+      <p class="welcome-eyebrow">Your next step is personal</p>
+      <h2>Stop Guessing. Find Your Next Rhythm.</h2>
+      <p>During your complimentary call, Brittany will listen, help clarify the gap between where you are and how you want to feel, and explore whether coaching fits your next season.</p>
+      <p class="consultation-promise">You do not need perfect habits, a diagnosis, or a completed guide before reaching out.</p>
+    </div>
+    <div class="consultation-actions">
+      <a id="book-a-call" class="contact-button lhl-welcome-book-call" href="https://scheduler.zoom.us/brittany-long-roller-i22l52/60-mins-with-brittany" target="_blank" rel="noopener noreferrer">
+        <b>Book a Call</b>
+        <small>Choose a time that works for you</small>
+      </a>
+      <p class="contact-microcopy">No pressure • No judgment • No obligation to purchase</p>
+    </div>
+  </div>
+</section>`;
+
 class ReplaceTitle {
   element(element) {
     element.setInnerContent("Christian Holistic Health Coaching for Women | Long Holistic Life");
@@ -252,12 +271,17 @@ class WelcomeHeaderHandler {
   }
 }
 
-class WelcomeConsultationActionsHandler {
+class RemoveWelcomeConsultationHandler {
   element(element) {
-    element.setInnerContent(
-      '<a id="book-a-call" class="contact-button lhl-welcome-book-call" href="https://scheduler.zoom.us/brittany-long-roller-i22l52/60-mins-with-brittany" target="_blank" rel="noopener noreferrer"><b>Book a Call</b><small>Choose a time that works for you</small></a><p class="contact-microcopy">No pressure • No judgment • No obligation to purchase</p>',
-      { html: true }
-    );
+    element.remove();
+  }
+}
+
+class WelcomeFooterHandler {
+  element(element) {
+    element.before(welcomeConsultationSection, { html: true });
+    element.setAttribute("class", "lhl-site-footer");
+    element.setInnerContent(unifiedFooter, { html: true });
   }
 }
 
@@ -592,10 +616,10 @@ export default {
       let rewriter = new HTMLRewriter()
         .on("head", new WelcomeHeadHandler())
         .on("header", new WelcomeHeaderHandler())
-        .on(".consultation-actions", new WelcomeConsultationActionsHandler())
+        .on("section.consultation-section", new RemoveWelcomeConsultationHandler())
         .on(".welcome-final-cta a.welcome-primary-cta", new WelcomeFinalCallHandler())
         .on("a.welcome-mobile-cta", new WelcomeMobileCallHandler())
-        .on("footer", new UnifiedFooterHandler())
+        .on("footer", new WelcomeFooterHandler())
         .on('link[rel*="icon"]', new FaviconHandler());
       return rewriter.transform(response);
     }
