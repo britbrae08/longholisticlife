@@ -216,7 +216,7 @@ class HomeHeadHandler {
 
 class WelcomeHeadHandler {
   element(element) {
-    element.prepend('<script src="/assets/welcome-top-fix-v6.js"></script><script src="/assets/women-consult-invites.js" defer></script>', { html: true });
+    element.prepend('<script src="/assets/welcome-top-fix-v7.js"></script><script src="/assets/women-consult-invites.js" defer></script>', { html: true });
     element.append(
       `<meta name="robots" content="noindex,follow,max-image-preview:large">
 <link rel="canonical" href="${PRIMARY_ORIGIN}/welcome">
@@ -614,6 +614,7 @@ export default {
 
     if (url.pathname === "/welcome" || url.pathname === "/welcome/") {
       let rewriter = new HTMLRewriter()
+        .on("head", new BrandHeadHandler())
         .on("head", new WelcomeHeadHandler())
         .on("header", new WelcomeHeaderHandler())
         .on("section.consultation-section", new RemoveWelcomeConsultationHandler())
