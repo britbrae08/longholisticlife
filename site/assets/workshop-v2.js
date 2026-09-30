@@ -49,9 +49,9 @@
 (function () {
   "use strict";
 
-  // November 15, 2026 at 7:00 PM Central Time.
+  // November 22, 2026 at 7:00 PM Central Time.
   // By this date Central Time is CST (UTC-06:00).
-  var eventTime = new Date("2026-11-15T19:00:00-06:00").getTime();
+  var eventTime = new Date("2026-11-22T19:00:00-06:00").getTime();
   var countdown = document.querySelector("[data-workshop-countdown]");
   if (!countdown) return;
 
