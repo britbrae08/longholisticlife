@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
 
   <title>You’re Booked! NEW CREATION Workshop | Long Holistic Life</title>
-  <meta name="description" content="Your seat is reserved for the live NEW CREATION Whole-Person Reset Workshop with Brittany of Long Holistic Life on Sunday, November 15, 2026 at 7:00 PM Central on Zoom.">
+  <meta name="description" content="Your seat is reserved for the live NEW CREATION Whole-Person Reset Workshop with Brittany of Long Holistic Life on Sunday, November 22, 2026 at 7:00 PM Central on Zoom.">
   <meta name="robots" content="noindex,follow">
   <link rel="canonical" href="https://longholisticlife.com/workshop/booked">
   <link rel="icon" href="/favicon.png" type="image/png">
@@ -44,7 +44,7 @@
 
       <div class="booked-event-card">
         <span class="booked-event-kicker">SAVE THE DATE</span>
-        <strong>Sunday, November 15, 2026</strong>
+        <strong>Sunday, November 22, 2026</strong>
         <span>7:00 PM Central Time</span>
         <span>Live on Zoom • 90 minutes</span>
       </div>
@@ -62,7 +62,7 @@
       <div class="booked-countdown" data-booked-countdown aria-label="Countdown to the NEW CREATION workshop">
         <div class="booked-countdown-heading">
           <span>LIVE WORKSHOP BEGINS IN</span>
-          <small>November 15 • 7:00 PM Central</small>
+          <small>November 22 • 7:00 PM Central</small>
         </div>
 
         <div class="booked-countdown-grid" role="timer" aria-live="polite">
@@ -150,12 +150,12 @@
     <div class="seo-shell booked-narrow">
       <img src="/lhl-logo.webp" alt="" width="112" height="112">
       <p class="booked-eyebrow">WE’RE SO GLAD YOU’RE COMING</p>
-      <h2>Sunday, November 15 Can Be More Than Another Date on Your Calendar.</h2>
+      <h2>Sunday, November 22 Can Be More Than Another Date on Your Calendar.</h2>
 
       <p>It can be the moment you stop trying to change everything and finally get clear about what comes next.</p>
 
       <div class="booked-final-event">
-        <strong>Sunday, November 15, 2026</strong>
+        <strong>Sunday, November 22, 2026</strong>
         <span>7:00 PM Central Time • Live on Zoom</span>
       </div>
 
