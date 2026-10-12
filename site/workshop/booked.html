@@ -21,6 +21,92 @@
   <meta property="og:url" content="https://longholisticlife.com/workshop/booked">
   <meta property="og:image" content="https://longholisticlife.com/lhl-logo.png">
   <meta name="twitter:card" content="summary_large_image">
+
+  <style>
+    .booked-workbook-cta {
+      width: min(100%, 560px);
+      margin: 24px auto 0;
+      padding: 24px 26px;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid rgba(199, 155, 74, 0.42);
+      border-radius: 14px;
+      box-shadow: 0 16px 38px rgba(51, 72, 59, 0.10);
+      backdrop-filter: blur(4px);
+    }
+
+    .booked-workbook-cta strong {
+      display: block;
+      margin-bottom: 6px;
+      color: #33483B;
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 1.2rem;
+      line-height: 1.25;
+    }
+
+    .booked-workbook-cta p {
+      max-width: 450px;
+      margin: 0 auto 16px;
+      color: #59675E;
+      font-size: 0.82rem;
+      line-height: 1.6;
+    }
+
+    .booked-workbook-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 52px;
+      padding: 14px 25px;
+      border: 1px solid rgba(230, 214, 178, 0.85);
+      border-radius: 999px;
+      background: linear-gradient(135deg, #B76E79, #9B4353);
+      color: #ffffff !important;
+      box-shadow:
+        0 12px 28px rgba(143, 68, 82, 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 0.20);
+      font-family: "Montserrat", Arial, sans-serif;
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.055em;
+      text-decoration: none !important;
+      text-transform: uppercase;
+      transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        filter 0.18s ease;
+    }
+
+    .booked-workbook-button:hover {
+      transform: translateY(-2px);
+      filter: brightness(0.98);
+      box-shadow:
+        0 17px 35px rgba(143, 68, 82, 0.28),
+        inset 0 1px 0 rgba(255, 255, 255, 0.20);
+    }
+
+    .booked-workbook-note {
+      display: block;
+      margin-top: 11px;
+      color: #69766E;
+      font-family: "Montserrat", Arial, sans-serif;
+      font-size: 0.68rem;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 640px) {
+      .booked-workbook-cta {
+        padding: 21px 18px;
+        margin-top: 20px;
+      }
+
+      .booked-workbook-button {
+        width: 100%;
+        box-sizing: border-box;
+      }
+    }
+  </style>
 </head>
 
 <body class="seo-page booked-page">
@@ -47,6 +133,24 @@
         <strong>Sunday, November 22, 2026</strong>
         <span>7:00 PM Central Time</span>
         <span>Live on Zoom • 90 minutes</span>
+      </div>
+
+      <div class="booked-workbook-cta">
+        <strong>Your NEW CREATION Workbook Is Ready</strong>
+        <p>Open your workbook now and save your own personal editable copy so it is ready for the workshop.</p>
+
+        <a
+          class="booked-workbook-button"
+          href="https://docs.google.com/document/d/18Aq28gRB89yqAY-1GJ5FFpeDpqFpDKXq0rcMKti7FJ8/copy"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Open Your Workshop Workbook <span aria-hidden="true">→</span>
+        </a>
+
+        <small class="booked-workbook-note">
+          Your copy is personal to you. Anything you type in it will not change the original workbook or anyone else’s copy.
+        </small>
       </div>
     </div>
   </section>
@@ -137,7 +241,7 @@
       </div>
 
       <ul class="booked-checklist">
-        <li>A notebook or your NEW CREATION materials</li>
+        <li>Your NEW CREATION Whole-Person Reset Workbook</li>
         <li>A pen and a quiet place to think</li>
         <li>A glass or bottle of water</li>
         <li>One or two questions you would love Brittany to address</li>
@@ -164,14 +268,13 @@
   </section>
 </main>
 
-
-  <aside class="booked-sticky-reminder" role="note" aria-label="Zoom link reminder">
-    <div class="booked-sticky-icon" aria-hidden="true">✉</div>
-    <div class="booked-sticky-copy">
-      <strong>Watch for your Zoom link!</strong>
-      <p>You’ll receive an <b>email and text the day of the workshop</b> with the Zoom address. Look out for it—and be sure to check your <b>spam and junk folders</b>, too.</p>
-    </div>
-  </aside>
+<aside class="booked-sticky-reminder" role="note" aria-label="Zoom link reminder">
+  <div class="booked-sticky-icon" aria-hidden="true">✉</div>
+  <div class="booked-sticky-copy">
+    <strong>Watch for your Zoom link!</strong>
+    <p>You’ll receive an <b>email and text the day of the workshop</b> with the Zoom address. Look out for it—and be sure to check your <b>spam and junk folders</b>, too.</p>
+  </div>
+</aside>
 
 <footer></footer>
 
