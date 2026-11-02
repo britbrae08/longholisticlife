@@ -573,6 +573,25 @@ export default {
       return redirect(url);
     }
 
+    if (url.pathname === "/quest.html" || url.pathname === "/quest/") {
+      url.pathname = "/quest";
+      return redirect(url);
+    }
+
+    if (url.pathname === "/quest") {
+      const assetUrl = new URL(request.url);
+      assetUrl.pathname = "/quest.html";
+      const gameAsset = await env.ASSETS.fetch(new Request(assetUrl.toString(), request));
+      if (!gameAsset.ok) return gameAsset;
+      const headers = new Headers(gameAsset.headers);
+      headers.set("content-type", "text/html; charset=UTF-8");
+      headers.delete("location");
+      const gameResponse = new Response(await gameAsset.text(), {
+        status: 200, headers
+      });
+      return applySiteChrome(new HTMLRewriter()).transform(gameResponse);
+    }
+
     if (url.pathname === "/workshop/booked") {
       const assetUrl = new URL(request.url);
       assetUrl.pathname = "/workshop/booked-page.txt";
