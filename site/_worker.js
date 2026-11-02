@@ -580,7 +580,7 @@ export default {
 
     if (url.pathname === "/quest") {
       const assetUrl = new URL(request.url);
-      assetUrl.pathname = "/quest.html";
+      assetUrl.pathname = "/quest-page.txt";
       const gameAsset = await env.ASSETS.fetch(new Request(assetUrl.toString(), request));
       if (!gameAsset.ok) return gameAsset;
       const headers = new Headers(gameAsset.headers);
